@@ -1,6 +1,7 @@
 
 package com.juristec;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -14,18 +15,23 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 
 @Path("/my-entity")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class MyEntityResource {
 
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-
+  
         @GET
         public List<MyEntity> listAll() {
             return MyEntity.listAll();
         }
+        @GET
+        @Path("/{id}")
+        public MyEntity getById(@PathParam("id") Long id) {
+            return MyEntity.findById(id);
+        }
 
         @POST
-         @Transactional
+        @Transactional
         public MyEntity create(MyEntity entity) {
             entity.persist();
             return entity;
@@ -33,6 +39,7 @@ public class MyEntityResource {
 
         @DELETE
         @Path("/{id}")
+        @Transactional
         public void delete(@PathParam("id") Long id) {
             MyEntity.deleteById(id);
         }
