@@ -13,4 +13,6 @@ public class AppUser extends PanacheEntity {
     public String lastName;
     public String status;
     public String role;
+    public String image;
+    public String warriors;
 }

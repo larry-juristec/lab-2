@@ -13,26 +13,26 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 
-@Path("/app-user")
+@Path("/warrior")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
-public class AppUserResource {
+public class WarriorResource {
 
   
         @GET
-        public List<AppUser> listAll() {
-            return AppUser.listAll();
+        public List<Warrior> listAll() {
+            return Warrior.listAll();
         }
         @GET
         @Path("/{id}")
-        public AppUser getById(@PathParam("id") Long id) {
-            return AppUser.findById(id);
+        public Warrior getById(@PathParam("id") Long id) {
+            return Warrior.findById(id);
         }
 
         @POST
         @Transactional
-        public AppUser create(AppUser entity) {
+        public Warrior create(Warrior entity) {
             entity.persist();
             return entity;
         }
@@ -40,20 +40,17 @@ public class AppUserResource {
         @PATCH
         @Path("/{id}")
         @Transactional
-        public AppUser update(@PathParam("id") Long id, AppUser entity) {
-            AppUser existingEntity = AppUser.findById(id);
+        public Warrior update(@PathParam("id") Long id, Warrior entity) {
+            Warrior existingEntity = Warrior.findById(id);
             if (existingEntity == null) {
-                throw new NotFoundException("AppUser not found");
+                throw new NotFoundException("Warrior not found");
             }
-            existingEntity.username = entity.username;
-            existingEntity.password = entity.password;
+            existingEntity.name = entity.name;
             existingEntity.email = entity.email;
-            existingEntity.firstName = entity.firstName;
-            existingEntity.lastName = entity.lastName;
-            existingEntity.status = entity.status;
-            existingEntity.role = entity.role;
+            existingEntity.description = entity.description;
             existingEntity.image = entity.image;
-            existingEntity.warriors = entity.warriors;
+            existingEntity.appuser = entity.appuser;
+           
             return existingEntity;
         }
 
@@ -61,7 +58,7 @@ public class AppUserResource {
         @Path("/{id}")
         @Transactional
         public void delete(@PathParam("id") Long id) {
-            AppUser.deleteById(id);
+            Warrior.deleteById(id);
         }
     }
 
