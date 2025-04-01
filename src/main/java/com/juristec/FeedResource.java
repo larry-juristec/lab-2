@@ -6,26 +6,26 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/data2")
+@Path("/feed")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
-public class Data2Resource {
+public class FeedResource {
 
   
         @GET
-        public List<Data2> listAll() {
-            return Data2.listAll();
+        public List<Feed> listAll() {
+            return Feed.listAll();
         }
         @GET
         @Path("/{id}")
-        public Data2 getById(@PathParam("id") Long id) {
-            return Data2.findById(id);
+        public Feed getById(@PathParam("id") Long id) {
+            return Feed.findById(id);
         }
 
         @POST
         @Transactional
-        public Data2 create(Data2 entity) {
+        public Feed create(Feed entity) {
             entity.persist();
             return entity;
         }
@@ -33,19 +33,19 @@ public class Data2Resource {
         @PATCH
         @Path("/{id}")
         @Transactional
-        public Data2 update(@PathParam("id") Long id, Data2 entity) {
-            Data2 existingEntity = Data2.findById(id);
+        public Feed update(@PathParam("id") Long id, Feed entity) {
+            Feed existingEntity = Feed.findById(id);
             if (existingEntity == null) {
-                throw new NotFoundException("data not found");
+                throw new NotFoundException("Feed not found");
             }
             existingEntity.name = entity.name;
-            existingEntity.weight = entity.weight;
-            existingEntity.description = entity.description;
-            existingEntity.image = entity.image;
-            existingEntity.reps = entity.reps;
-            existingEntity.sets = entity.sets;
-            existingEntity.distance = entity.distance;
-          
+            existingEntity.category = entity.category;
+            existingEntity.completionTime = entity.completionTime;
+            existingEntity.date = entity.date;
+            existingEntity.warrior = entity.warrior;
+            existingEntity.picture = entity.picture;
+            existingEntity.exercises = entity.exercises;
+         
             return existingEntity;
         }
 
@@ -53,7 +53,7 @@ public class Data2Resource {
         @Path("/{id}")
         @Transactional
         public void delete(@PathParam("id") Long id) {
-            Data2.deleteById(id);
+            Feed.deleteById(id);
         }
     }
 

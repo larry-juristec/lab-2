@@ -43,7 +43,7 @@ public class ChallengeResource {
         public Challenge update(@PathParam("id") Long id, Challenge entity) {
             Challenge existingEntity = Challenge.findById(id);
             if (existingEntity == null) {
-                throw new NotFoundException("Warrior not found");
+                throw new NotFoundException("Challenge not found");
             }
             existingEntity.title = entity.title;
             existingEntity.description = entity.description;

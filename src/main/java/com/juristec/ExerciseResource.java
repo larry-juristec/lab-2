@@ -36,7 +36,7 @@ public class ExerciseResource {
         public Exercise update(@PathParam("id") Long id, Exercise entity) {
             Exercise existingEntity = Exercise.findById(id);
             if (existingEntity == null) {
-                throw new NotFoundException("Warrior not found");
+                throw new NotFoundException("Exercise not found");
             }
             existingEntity.name = entity.name;
             existingEntity.force = entity.force;
